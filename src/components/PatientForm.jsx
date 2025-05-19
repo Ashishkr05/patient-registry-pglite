@@ -1,5 +1,4 @@
-// src/components/PatientForm.jsx
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { getDB } from '../lib/db';
 import './PatientForm.css';
@@ -14,6 +13,18 @@ const PatientForm = () => {
   });
 
   const [message, setMessage] = useState('');
+  const [dbLoaded, setDbLoaded] = useState(false);
+
+  useEffect(() => {
+    getDB()
+      .then(() => {
+        console.log('✅ DB loaded inside form');
+        setDbLoaded(true);
+      })
+      .catch((err) => {
+        console.error('❌ DB init failed inside form:', err);
+      });
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -22,14 +33,21 @@ const PatientForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const db = await getDB();
-    const id = uuidv4();
+    setMessage('');
+
+    if (!dbLoaded) {
+      setMessage('⏳ Database is still loading. Please wait a moment...');
+      return;
+    }
 
     try {
-      await db.run({
-        sql: `INSERT INTO patients (id, name, age, gender, contact, address) VALUES (?, ?, ?, ?, ?, ?)`,
-        args: [id, form.name, Number(form.age), form.gender, form.contact, form.address],
-      });
+      const db = await getDB();
+      const id = uuidv4();
+
+      await db.query(
+        `INSERT INTO patients (id, name, age, gender, contact, address) VALUES ($1, $2, $3, $4, $5, $6)`,
+        [id, form.name, Number(form.age), form.gender, form.contact, form.address]
+      );
 
       setMessage('✅ Patient registered successfully!');
       setForm({ name: '', age: '', gender: '', contact: '', address: '' });
@@ -53,9 +71,13 @@ const PatientForm = () => {
         </select>
         <input name="contact" placeholder="Contact Number" value={form.contact} onChange={handleChange} />
         <textarea name="address" placeholder="Address" value={form.address} onChange={handleChange}></textarea>
-        <button type="submit">Register</button>
+        <button type="submit" disabled={!dbLoaded}>
+          {dbLoaded ? 'Register' : 'Loading...'}
+        </button>
       </form>
-      {message && <p className="message">{message}</p>}
+      {message && (
+        <p className={`message ${message.includes('❌') ? 'error' : 'success'}`}>{message}</p>
+      )}
     </div>
   );
 };

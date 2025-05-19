@@ -54,8 +54,15 @@
 }
 
 .message {
-  margin-top: 18px;
-  font-weight: 600;
+  margin-top: 16px;
+  font-weight: bold;
   text-align: center;
+}
+
+.message.success {
   color: green;
+}
+
+.message.error {
+  color: red;
 }

@@ -1,4 +1,3 @@
-// src/pages/Register.jsx
 import React from 'react';
 import PatientForm from '../components/PatientForm';
 

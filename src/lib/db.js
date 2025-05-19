@@ -1,12 +1,12 @@
-// src/lib/db.js
 import { PGlite } from '@electric-sql/pglite';
 
 let db;
+let dbReady = false;
 
 export async function getDB() {
-  if (db) return db;
+  if (dbReady) return db;
 
-  db = new PGlite('patient-db', { persistent: true });
+  db = new PGlite('idb://patient-db');
 
   await db.exec(`
     CREATE TABLE IF NOT EXISTS patients (
@@ -19,5 +19,6 @@ export async function getDB() {
     );
   `);
 
+  dbReady = true;
   return db;
 }
