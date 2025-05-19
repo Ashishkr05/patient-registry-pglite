@@ -1,0 +1,42 @@
+.page {
+  padding: 40px;
+  max-width: 700px;
+  margin: auto;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+.description {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  color: #666;
+}
+
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.btn {
+  padding: 12px 24px;
+  background-color: #4B0082;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  background-color: #36006d;
+}
+
+.btn.secondary {
+  background-color: #777;
+}
+
+.btn.secondary:hover {
+  background-color: #555;
+}
