@@ -1,0 +1,26 @@
+.navbar {
+  background-color: #4B0082;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 24px;
+  align-items: center;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  margin-left: 16px;
+  padding: 6px 12px;
+  border-radius: 4px;
+  transition: background 0.3s;
+}
+
+.nav-links a:hover {
+  background-color: #36006d;
+}
+
+.nav-links .active {
+  background-color: #2a005a;
+}

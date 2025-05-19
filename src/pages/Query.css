@@ -60,3 +60,15 @@
   font-weight: bold;
   text-align: center;
 }
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 16px;
+  font-weight: bold;
+  color: #4B0082;
+  text-decoration: none;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}

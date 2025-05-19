@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { getDB } from '../lib/db';
 import './Query.css';
 
@@ -8,31 +9,34 @@ const Query = () => {
   const [columns, setColumns] = useState([]);
   const [error, setError] = useState('');
 
-const runQuery = async () => {
-  console.log("⚙️ Running query:", sql);
-  try {
-    const db = await getDB();
-    const { rows } = await db.query(sql);
-    console.log("✅ Parsed rows:", rows);
+  const runQuery = async () => {
+    console.log("⚙️ Running query:", sql);
+    try {
+      const db = await getDB();
+      const { rows } = await db.query(sql);
+      console.log("✅ Parsed rows:", rows);
 
-    if (rows.length > 0) {
-      setColumns(Object.keys(rows[0]));
-      setResults(rows);
-    } else {
-      setColumns([]);
+      if (rows.length > 0) {
+        setColumns(Object.keys(rows[0]));
+        setResults(rows);
+      } else {
+        setColumns([]);
+        setResults([]);
+      }
+      setError('');
+    } catch (err) {
+      console.error('❌ Query failed:', err);
       setResults([]);
+      setColumns([]);
+      setError(err.message || 'Invalid SQL');
     }
-    setError('');
-  } catch (err) {
-    console.error('❌ Query failed:', err);
-    setResults([]);
-    setColumns([]);
-    setError(err.message || 'Invalid SQL');
-  }
-};
+  };
 
   return (
     <div className="query-page">
+      {/* Back to Home Button */}
+      <Link to="/" className="back-link">← Back to Home</Link>
+
       <h2>SQL Query Tool</h2>
       <textarea
         value={sql}
