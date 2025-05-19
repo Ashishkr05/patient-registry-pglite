@@ -31,31 +31,31 @@ const PatientForm = () => {
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setMessage('');
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  setMessage('');
 
-    if (!dbLoaded) {
-      setMessage('⏳ Database is still loading. Please wait a moment...');
-      return;
-    }
+  if (!dbLoaded) {
+    setMessage('⏳ Database is still loading. Please wait a moment...');
+    return;
+  }
 
-    try {
-      const db = await getDB();
-      const id = uuidv4();
+  try {
+    const db = await getDB();
+    const id = uuidv4();
 
-      await db.query(
-        `INSERT INTO patients (id, name, age, gender, contact, address) VALUES ($1, $2, $3, $4, $5, $6)`,
-        [id, form.name, Number(form.age), form.gender, form.contact, form.address]
-      );
+    await db.exec(`
+      INSERT INTO patients (id, name, age, gender, contact, address)
+      VALUES ('${id}', '${form.name}', ${Number(form.age)}, '${form.gender}', '${form.contact}', '${form.address}')
+    `);
 
-      setMessage('✅ Patient registered successfully!');
-      setForm({ name: '', age: '', gender: '', contact: '', address: '' });
-    } catch (err) {
-      console.error(err);
-      setMessage('❌ Failed to register patient');
-    }
-  };
+    setMessage('✅ Patient registered successfully!');
+    setForm({ name: '', age: '', gender: '', contact: '', address: '' });
+  } catch (err) {
+    console.error(err);
+    setMessage('❌ Failed to register patient');
+  }
+};
 
   return (
     <div className="form-container">
