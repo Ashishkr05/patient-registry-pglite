@@ -75,12 +75,13 @@ const PatientForm = () => {
       const id = uuidv4();
 
       await db.exec(`
-        INSERT INTO patients (id, name, age, gender, contact, address)
-        VALUES ('${id}', '${form.name}', ${Number(form.age)}, '${form.gender}', '${form.contact}', '${form.address}')
+      INSERT INTO patients (id, name, age, gender, contact, address)
+      VALUES ('${id}', '${form.name}', ${Number(form.age)}, '${form.gender}', '${form.contact}', '${form.address}')
       `);
 
       setMessage('✅ Patient registered successfully!');
       setForm({ name: '', age: '', gender: '', contact: '', address: '' });
+      localStorage.setItem('patient-update', Date.now().toString());
     } catch (err) {
       console.error(err);
       setMessage('❌ Failed to register patient');

@@ -6,7 +6,7 @@ let dbReady = false;
 export async function getDB() {
   if (dbReady) return db;
 
-  db = new PGlite('idb://patient-db');
+ db = new PGlite('idb://patient-db', { sharedWorker: true });
 
   await db.exec(`
     CREATE TABLE IF NOT EXISTS patients (
