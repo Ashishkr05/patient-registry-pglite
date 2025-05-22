@@ -1,0 +1,53 @@
+.stats-page {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+h2 {
+  font-size: 24px;
+  margin-bottom: 30px;
+}
+
+.card-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-between;
+}
+
+.stat-card {
+  flex: 1 1 45%;
+  min-width: 300px;
+  background: #f5f5ff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  height: 320px;
+}
+
+.stat-card h3 {
+  margin-bottom: 12px;
+  color: #4b0082;
+}
+
+.stat-card canvas {
+  width: 100% !important;
+  height: 220px !important;
+}
+
+.highlight {
+  background: #ffffff;
+  text-align: center;
+  height: auto;
+  margin-top: -120px;
+  margin-bottom: 20px;
+}
+
+.big-count {
+  font-size: 40px;
+  font-weight: bold;
+  color: #8c52ff;
+  margin-top: 10px;
+}
