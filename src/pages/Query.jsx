@@ -45,14 +45,35 @@ const Query = () => {
     }
   };
 
+  const exportToCSV = () => {
+    const csvRows = [];
+
+    // Headers
+    csvRows.push([...columns, 'Action'].join(','));
+
+    // Data rows
+    results.forEach(row => {
+      const rowData = columns.map(col => `"${row[col]}"`);
+      rowData.push(''); // Placeholder for Action column
+      csvRows.push(rowData.join(','));
+    });
+
+    const csvString = csvRows.join('\n');
+    const blob = new Blob([csvString], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'patient_records.csv';
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <div className="query-page">
-      {/* Back to Home Button */}
       <Link to="/" className="back-link">← Back to Home</Link>
-
       <h2>SQL Query Tool</h2>
 
-      {/* Search by Name */}
       <input
         type="text"
         placeholder="Search by Name"
@@ -67,7 +88,15 @@ const Query = () => {
         placeholder="Write your SQL query here"
         rows={5}
       ></textarea>
-      <button onClick={runQuery}>Run Query</button>
+
+      <div style={{ display: 'flex', gap: '10px', marginBottom: '10px' }}>
+        <button onClick={runQuery}>Run Query</button>
+        {results.length > 0 && (
+          <button onClick={exportToCSV} className="btn secondary">
+            Export to CSV
+          </button>
+        )}
+      </div>
 
       {error && <p className="error">{error}</p>}
 
