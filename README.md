@@ -1,12 +1,71 @@
-# React + Vite
+# 🩺 Patient Registry App – React + Vite + PGlite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern **frontend-only** web application to register and manage patient data locally using [PGlite](https://pglite.dev/docs/). Built with **React**, **Vite**, and **PGlite**, this lightweight app enables patient registration, raw SQL querying, data persistence, and responsive UI — all in the browser.
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Features
 
-## Expanding the ESLint configuration
+### 📋 Patient Registration
+- Register new patients with details: Name, Age, Gender, Contact, Address
+- Form validation includes:
+  - Contact number must be numeric and at least 10 digits
+  - Address is mandatory
+  - Displays inline error messages
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### 🔎 Query Interface
+- Write and execute custom **SQL** queries (e.g. `SELECT * FROM patients`)
+- Search patient records by **name**
+- View results in a clean, responsive table
+
+### 🧰 Data Management
+- **Delete** individual patient records from query results
+- **Export** all query results as a `.csv` file
+- Data persists using **IndexedDB** for local storage
+- Supports multi-tab access and page refreshes
+
+### 🧭 Navigation & UI
+- Intuitive navigation with routes:
+  - `/` → Home
+  - `/register` → Register Patient
+  - `/query` → Query Records
+- UI includes:
+  - Responsive layout
+  - Back-to-Home buttons
+  - Styled buttons with hover effects
+  - Clean, modern font and spacing
+
+
+
+## 🛠️ Tech Stack
+
+| Tool/Library        | Purpose                          |
+|---------------------|----------------------------------|
+| **React**           | Frontend UI                      |
+| **Vite**            | Fast bundler & dev server        |
+| **PGlite**          | Postgres-like SQL in the browser |
+| **UUID**            | Generate unique patient IDs      |
+| **CSS**             | Responsive and styled UI         |
+
+
+
+## 📦 Setup Instructions
+
+### 🧑‍💻 Local Development
+
+#### Clone the repo
+```bash
+git clone https://github.com/Ashishkr05/patient-registry-pglite
+cd patient-registry-pglite
+````
+
+#### Install dependencies
+
+```bash
+npm install
+```
+
+#### Run locally
+
+```bash
+npm run dev
+```
